@@ -1,25 +1,22 @@
-const express = require('express');
-const cors = require('cors');
-const path = require('path');
-const app = express();
-const db = require('./src/config/database');
-const routes = require('./src/routes/routes');
+import express from 'express';
+import cors from 'cors';
+import routes from './src/routes/routers.js';
+import dontenv from "dotenv"
 
-// Middleware para parsear JSON
+
+dontenv.config();
+const app = express();
+
+
+
+
+app.use(cors());
 app.use(express.json());
 
-//Middleware para usar cors
-app.use(cors());
 
 
 
-// Ruta para servir el archivo HTML
-app.get('/', (req, res) => {
-  res.send('El servidor esta corriendo correctamente')
-});
-
-
-// Usar las rutas definidas
+// rutas
 app.use('/api', routes);
 
 
