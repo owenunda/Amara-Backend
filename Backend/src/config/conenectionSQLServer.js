@@ -9,7 +9,7 @@ const connectionSetting = {
   user: process.env.DB_USER,
   password: process.env.DB_PASSWORD,
   option: {
-    encryp: true,
+    encrypt: true,
     trustServerCertificate: true
   }
 }
