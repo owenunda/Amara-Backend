@@ -1,8 +1,8 @@
-import jwt from 'jsonwebtoken';
+import jwt from 'jsonwebtoken'
 
 export const authMiddleware = (req, res, next) => {
   const token = req.header('Authorization')
-  
+
   if (!token) {
     return res.status(401).json({ message: 'Acceso denegado, token no proporcionado' })
   }
@@ -14,4 +14,4 @@ export const authMiddleware = (req, res, next) => {
   } catch (error) {
     res.status(401).json({ message: 'Token inválido' })
   }
-};
+}
