@@ -6,7 +6,9 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node index.js",
-    "dev": "node --watch index.js"
+    "dev": "node --watch index.js",
+    "lint": "standard",
+    "lint:fix": "standard --fix"
   },
   "author": "",
   "license": "ISC",
@@ -18,5 +20,11 @@
     "express": "^4.21.2",
     "mssql": "^11.0.1",
     "sqlite3": "^5.1.7"
+  },
+  "devDependencies": {
+    "standard": "17.1.2"
+  },
+  "eslintConfig": {
+    "extends": "./node_modules/standard/eslintrc.json"
   }
 }

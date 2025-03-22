@@ -14,17 +14,17 @@ const connectionSetting = {
   }
 }
 
-const pool = new mssql.ConnectionPool(connectionSetting);
+const pool = new mssql.ConnectionPool(connectionSetting)
 
-const dbConnect = pool.connect()
-  .then(pool => {
-    console.log("Conexión a SQL Server exitosa");
-    return pool;
+const dbConnect = pool
+  .connect()
+  .then((pool) => {
+    console.log('Conexión a SQL Server exitosa')
+    return pool
   })
-  .catch(err => {
-    console.error("Error de conexión a SQL Server:", err);
-    process.exit(1);
-  });
+  .catch((err) => {
+    console.error('Error de conexión a SQL Server:', err)
+    process.exit(1)
+  })
 
-  
-export { mssql, dbConnect };
+export { mssql, dbConnect }
