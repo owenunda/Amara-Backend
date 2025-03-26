@@ -1,6 +1,7 @@
 import swaggerAutogen from 'swagger-autogen'
 
-const outpuFile = './swagger.json'
+// la plantilla que uso se genera con la documentacion NO es la que se sube al final!
+const outpuFile = './GeneraterSwagger.json'
 const endPointsFiles = ['./index.js']
 
 const doc = {

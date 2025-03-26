@@ -7,82 +7,27 @@
   },
   "host": "amara-backend-production.up.railway.app",
   "basePath": "/",
-  "schemes": [
-    "https"
-  ],
+  "schemes": ["https"],
   "paths": {
-    "/api/perfil": {
-      "get": {
-        "description": "",
-        "parameters": [
-          {
-            "name": "Authorization",
-            "in": "header",
-            "type": "string"
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "OK"
-          },
-          "401": {
-            "description": "Unauthorized"
-          }
-        }
-      }
-    },
-    "/api/personas/": {
-      "get": {
-        "description": "",
-        "responses": {
-          "200": {
-            "description": "OK"
-          },
-          "500": {
-            "description": "Internal Server Error"
-          }
-        }
-      }
-    },
-    "/api/personas/{id}": {
-      "get": {
-        "description": "",
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "type": "string"
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "OK"
-          },
-          "404": {
-            "description": "Not Found"
-          },
-          "500": {
-            "description": "Internal Server Error"
-          }
-        }
-      }
-    },
     "/api/login": {
       "post": {
-        "description": "",
+        "tags": ["Login"],
+        "description": "Autentica a un usuario en el sistema proporcionando su nombre de usuario y contraseña. Si las credenciales son correctas, devuelve un token de autenticación para acceder a los demás recursos protegidos de la API.",
         "parameters": [
           {
             "name": "body",
             "in": "body",
+            "required": true,
             "schema": {
               "type": "object",
               "properties": {
                 "nombre_usuario": {
-                  "example": "any"
+                  "type": "string",
+                  "example": "usuario123"
                 },
                 "password": {
-                  "example": "any"
+                  "type": "string",
+                  "example": "contraseñaSegura"
                 }
               }
             }
@@ -90,79 +35,165 @@
         ],
         "responses": {
           "200": {
-            "description": "OK"
+            "description": "Autenticación exitosa. Devuelve un token de acceso."
           },
           "400": {
-            "description": "Bad Request"
+            "description": "Solicitud incorrecta. Datos faltantes o en formato incorrecto."
           },
           "401": {
-            "description": "Unauthorized"
+            "description": "No autorizado. Credenciales incorrectas."
           },
           "500": {
-            "description": "Internal Server Error"
+            "description": "Error interno del servidor."
           }
         }
       }
     },
     "/api/verify": {
       "get": {
-        "description": "",
+        "tags": ["Login"],
+        "description": "Verifica la validez del token de autenticación enviado en el encabezado de la solicitud. Si el token es válido, el usuario puede continuar accediendo a los recursos protegidos. (aun no funcional)",
         "parameters": [
           {
             "name": "authorization",
             "in": "header",
-            "type": "string"
+            "required": true,
+            "type": "string",
+            "description": "Token JWT de autenticación en formato 'Bearer <token>'"
           }
         ],
         "responses": {
           "200": {
-            "description": "OK"
+            "description": "Token válido. El usuario puede acceder a los recursos protegidos."
           },
           "401": {
-            "description": "Unauthorized"
+            "description": "No autorizado. Token ausente, inválido o expirado."
           },
           "403": {
-            "description": "Forbidden"
+            "description": "Prohibido. El usuario no tiene los permisos necesarios."
+          }
+        }
+      }
+    },
+    "/api/perfil": {
+      "get": {
+        "tags": ["Login"],
+        "description": "Obtiene la información del perfil del usuario autenticado. Requiere un token de autenticación válido. (aun no funcional)",
+        "parameters": [
+          {
+            "name": "Authorization",
+            "in": "header",
+            "required": true,
+            "type": "string",
+            "description": "Token JWT de autenticación en formato 'Bearer <token>'"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Perfil del usuario obtenido correctamente."
+          },
+          "401": {
+            "description": "No autorizado. Token inválido o expirado."
+          }
+        }
+      }
+    },
+    "/api/personas/": {
+      "get": {
+        "tags": ["Personas"],
+        "description": "Obtiene una lista de todas las personas registradas en el sistema.",
+        "responses": {
+          "200": {
+            "description": "Lista de personas obtenida correctamente."
+          },
+          "500": {
+            "description": "Error interno del servidor."
+          }
+        }
+      }
+    },
+    "/api/personas/{id}": {
+      "get": {
+        "tags": ["Personas"],
+        "description": "Obtiene la información de una persona específica según su ID.",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string",
+            "description": "ID único de la persona a consultar."
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Información de la persona obtenida correctamente."
+          },
+          "404": {
+            "description": "No encontrado. No existe una persona con ese ID."
+          },
+          "500": {
+            "description": "Error interno del servidor."
           }
         }
       }
     },
     "/api/cliente/createCltProv": {
       "post": {
-        "description": "",
+        "tags": ["Cliente"],
+        "description": "Registra un nuevo cliente en el sistema. Si el cliente es una empresa (tipo_persona = 'juridica'), los campos 'apellido' y 'edad' pueden ser nulos. \nSi es una persona (tipo_persona = 'natural')",
         "parameters": [
           {
             "name": "body",
             "in": "body",
+            "required": true,
             "schema": {
               "type": "object",
               "properties": {
                 "cedula_nit": {
-                  "example": "any"
+                  "type": "string",
+                  "example": "123456789",
+                  "description": "Número de cédula o NIT del cliente."
                 },
                 "nombre": {
-                  "example": "any"
+                  "type": "string",
+                  "example": "Empresa XYZ",
+                  "description": "Nombre del cliente o razón social si es una empresa."
                 },
                 "apellido": {
-                  "example": "any"
+                  "type": "string",
+                  "example": "Pérez",
+                  "description": "Apellido del cliente. Puede ser nulo si es una empresa."
                 },
                 "celular": {
-                  "example": "any"
+                  "type": "string",
+                  "example": "3001234567",
+                  "description": "Número de celular del cliente."
                 },
                 "tipo_persona": {
-                  "example": "any"
+                  "type": "string",
+                  "example": "juridica",
+                  "description": "Tipo de persona: 'Natural' o 'Jurídica'."
                 },
                 "edad": {
-                  "example": "any"
+                  "type": "integer",
+                  "example": 30,
+                  "description": "Edad del cliente. Puede ser nulo si es una empresa."
                 },
                 "direccion": {
-                  "example": "any"
+                  "type": "string",
+                  "example": "Calle 123",
+                  "description": "Dirección del cliente."
                 },
                 "correo": {
-                  "example": "any"
+                  "type": "string",
+                  "example": "empresa@xyz.com",
+                  "description": "Correo electrónico del cliente."
                 },
                 "tipo_relacion": {
-                  "example": "any"
+                  "type": "string",
+                  "example": "cliente",
+                  "description": "Define si la persona es un 'cliente'."
                 }
               }
             }
@@ -170,53 +201,73 @@
         ],
         "responses": {
           "201": {
-            "description": "Created"
+            "description": "Cliente creado exitosamente."
           },
           "400": {
-            "description": "Bad Request"
+            "description": "Solicitud incorrecta. Datos inválidos o incompletos."
           },
           "500": {
-            "description": "Internal Server Error"
+            "description": "Error interno del servidor."
           }
         }
       }
     },
     "/api/proveedor/createCltProv": {
       "post": {
-        "description": "",
+        "tags": ["Proveedor"],
+        "description": "Registra un nuevo proveedor en el sistema. Si el proveedor es una empresa (tipo_persona = 'juridica'), los campos 'apellido' y 'edad' pueden ser nulos. \nSi es una persona (tipo_persona = 'natural')",
         "parameters": [
           {
             "name": "body",
             "in": "body",
+            "required": true,
             "schema": {
               "type": "object",
               "properties": {
                 "cedula_nit": {
-                  "example": "any"
+                  "type": "string",
+                  "example": "123456789",
+                  "description": "Número de cédula o NIT del cliente."
                 },
                 "nombre": {
-                  "example": "any"
+                  "type": "string",
+                  "example": "Empresa XYZ",
+                  "description": "Nombre del cliente o razón social si es una empresa."
                 },
                 "apellido": {
-                  "example": "any"
+                  "type": "string",
+                  "example": "Pérez",
+                  "description": "Apellido del cliente. Puede ser nulo si es una empresa."
                 },
                 "celular": {
-                  "example": "any"
+                  "type": "string",
+                  "example": "3001234567",
+                  "description": "Número de celular del cliente."
                 },
                 "tipo_persona": {
-                  "example": "any"
+                  "type": "string",
+                  "example": "juridica",
+                  "description": "Tipo de persona: 'Natural' o 'Jurídica'."
                 },
                 "edad": {
-                  "example": "any"
+                  "type": "integer",
+                  "example": 30,
+                  "description": "Edad del cliente. Puede ser nulo si es una empresa."
                 },
                 "direccion": {
-                  "example": "any"
+                  "type": "string",
+                  "example": "Calle 123",
+                  "description": "Dirección del cliente."
                 },
                 "correo": {
-                  "example": "any"
+                  "type": "string",
+                  "example": "empresa@xyz.com",
+                  "description": "Correo electrónico del cliente."
                 },
                 "tipo_relacion": {
-                  "example": "any"
+                  "type": "string",
+                  "example": "proveedor",
+                  "description": "Define si la persona es un 'proveedor'."
                 }
               }
             }
@@ -224,64 +275,118 @@
         ],
         "responses": {
           "201": {
-            "description": "Created"
+            "description": "Cliente creado exitosamente."
           },
           "400": {
-            "description": "Bad Request"
+            "description": "Solicitud incorrecta. Datos inválidos o incompletos."
           },
           "500": {
-            "description": "Internal Server Error"
+            "description": "Error interno del servidor."
           }
         }
       }
     },
     "/api/materias-primas/": {
       "get": {
-        "description": "",
+        "tags": ["Materias Primas"],
+        "description": "Obtiene una lista de todas las materias primas registradas en el sistema.",
         "responses": {
-          "201": {
-            "description": "Created"
+          "200": {
+            "description": "Lista de materias primas obtenida correctamente."
           },
           "500": {
-            "description": "Internal Server Error"
+            "description": "Error interno del servidor."
           }
         }
       }
     },
-    "/api/materias-primas/id-materias-primas": {
+    "/api/materias-primas/nombres-id": {
       "get": {
-        "description": "",
+        "tags": ["Materias Primas"],
+        "description": "Obtiene una lista de materias primas con solo su ID y nombre.",
         "responses": {
-          "201": {
-            "description": "Created"
+          "200": {
+            "description": "Lista de nombres de materias primas obtenida correctamente.",
+            "content": {
+              "application/json": {
+                "example": [
+                  {
+                    "id_materia": 3,
+                    "nombre": "Leche"
+                  },
+                  {
+                    "id_materia": 4,
+                    "nombre": "Sal"
+                  },
+                  {
+                    "id_materia": 5,
+                    "nombre": "Cuajo"
+                  },
+                  {
+                    "id_materia": 6,
+                    "nombre": "Nitrato"
+                  }
+                ]
+              }
+            }
           },
           "500": {
-            "description": "Internal Server Error"
+            "description": "Error interno del servidor."
           }
         }
       }
     },
     "/api/compra/": {
       "post": {
-        "description": "",
+        "tags": ["Compra"],
+        "description": "Registra una nueva compra en el sistema, asociada a un proveedor. También permite agregar detalles de los productos adquiridos.",
         "parameters": [
           {
             "name": "body",
             "in": "body",
+            "required": true,
             "schema": {
               "type": "object",
               "properties": {
-                "id_proveedor": {
-                  "example": "any"
+                "cedula_proveedor": {
+                  "type": "string",
+                  "example": "123456789",
+                  "description": "Cédula o NIT del proveedor asociado a la compra."
                 },
                 "metodo_pago": {
-                  "example": "any"
+                  "type": "string",
+                  "enum": ["efectivo", "tarjeta", "transferencia"],
+                  "example": "transferencia",
+                  "description": "Método de pago utilizado. Valores permitidos: 'efectivo', 'tarjeta', 'transferencia'."
                 },
                 "observaciones": {
-                  "example": "any"
+                  "type": "string",
+                  "example": "Compra de insumos para producción.",
+                  "description": "Notas adicionales sobre la compra."
                 },
                 "detalles": {
-                  "example": "any"
+                  "type": "array",
+                  "description": "Lista de detalles de los productos adquiridos en la compra.",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "id_materia": {
+                        "type": "integer",
+                        "example": 1,
+                        "description": "ID de la materia prima adquirida."
+                      },
+                      "cantidad": {
+                        "type": "number",
+                        "example": 10.5,
+                        "description": "Cantidad de materia prima adquirida."
+                      },
+                      "precio_unitario": {
+                        "type": "number",
+                        "example": 5.75,
+                        "description": "Precio unitario de la materia prima."
+                      }
+                    }
+                  }
                 }
               }
             }
@@ -289,13 +394,13 @@
         ],
         "responses": {
           "201": {
-            "description": "Created"
+            "description": "Compra registrada exitosamente."
           },
           "400": {
-            "description": "Bad Request"
+            "description": "Solicitud incorrecta. Datos inválidos o incompletos."
           },
           "500": {
-            "description": "Internal Server Error"
+            "description": "Error interno del servidor."
           }
         }
       }
