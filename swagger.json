@@ -5,7 +5,7 @@
     "description": "Esta API permite gestionar todo el sistema de invitenario de la produccion de quesos de la empresa AMARA SAS",
     "version": "1.0.0"
   },
-  "host": "localhost:4000",
+  "host": "https://amara-backend-production.up.railway.app",
   "basePath": "/",
   "schemes": [
     "http"
