@@ -16,6 +16,8 @@ app.use(express.json())
 // rutas
 app.use('/api', routes)
 app.use('/doc', swaggerUI.serve, swaggerUI.setup(swaggerDocumentation))
+
+console.log(swaggerDocumentation.schemes)
 // Puerto de escucha
 const PORT = process.env.PORT || 3000
 app.listen(PORT, () => {
