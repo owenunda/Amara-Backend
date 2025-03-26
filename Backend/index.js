@@ -1,32 +1,20 @@
-const express = require('express');
-const cors = require('cors');
-const path = require('path');
-const app = express();
-const db = require('./database');
-const routes = require('./routes');
+import express from 'express'
+import cors from 'cors'
+import routes from './src/routes/routers.js'
+import dontenv from 'dotenv'
 
-// Middleware para parsear JSON
-app.use(express.json());
+dontenv.config()
+const app = express()
 
-//Middleware para usar cors
-app.use(cors());
+app.use(cors())
+app.use(express.json())
 
-// Middleware para servir archivos estáticos
-app.use(express.static(path.join(__dirname, 'public')));
-
-// Ruta para servir el archivo HTML
-app.get('/', (req, res) => {
-  res.sendFile(path.join(__dirname, 'public', 'index.html'));
-});
-
-
-// Usar las rutas definidas
-app.use('/api', routes);
-
-
+// rutas
+app.use('/api', routes)
 
 // Puerto de escucha
-const PORT = process.env.PORT || 3000;
+const PORT = process.env.PORT || 3000
 app.listen(PORT, () => {
-  console.log(`Server is running on port ${PORT}`);
-});
+  console.log(`📢 Server is running on port ${PORT}`)
+  console.log('📢 Url: http://localhost:3000')
+})
