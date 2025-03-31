@@ -6,6 +6,7 @@ import createClientProveedor from './createCliente_proveedor.router.js'
 import materiaPrimaRouters from './materiaPrima.routers.js'
 import compraRouters from './compra.routers.js'
 import quesosRouters from './quesos.routers.js'
+import ProduccionRouter from './produccion.routers.js'
 const router = express.Router()
 
 router.use('/personas', personaRouters)
@@ -18,4 +19,5 @@ router.use('/proveedor', createClientProveedor)
 router.use('/materias-primas', materiaPrimaRouters)
 router.use('/compra', compraRouters)
 router.use('/quesos', quesosRouters)
+router.use('/produccion', ProduccionRouter)
 export default router

@@ -473,6 +473,200 @@
           }
         }
       }
+    },
+    "/api/produccion/create-produccion": {
+      "post": {
+        "description": "Registra una nueva producción junto con los detalles de las materias primas utilizadas.",
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "type": "object",
+              "properties": {
+                "id_queso": {
+                  "type": "integer",
+                  "example": 1,
+                  "description": "ID del tipo de queso producido."
+                },
+                "cantidad_producida": {
+                  "type": "integer",
+                  "example": 10,
+                  "description": "Cantidad de quesos producidos."
+                },
+                "responsable": {
+                  "type": "string",
+                  "example": "Juan Pérez",
+                  "description": "Nombre del responsable de la producción."
+                },
+                "estado": {
+                  "type": "string",
+                  "enum": ["en proceso", "finalizado", "cancelado"],
+                  "example": "en proceso",
+                  "description": "Estado actual de la producción."
+                },
+                "observaciones": {
+                  "type": "string",
+                  "example": "Producción en curso, buena calidad.",
+                  "description": "Notas adicionales sobre la producción (opcional)."
+                },
+                "detalles": {
+                  "type": "array",
+                  "description": "Lista de materias primas utilizadas en la producción.",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "id_materia": {
+                        "type": "integer",
+                        "example": 5,
+                        "description": "ID de la materia prima utilizada."
+                      },
+                      "cantidad_usada": {
+                        "type": "number",
+                        "format": "decimal",
+                        "example": 2.5,
+                        "description": "Cantidad de materia prima utilizada."
+                      },
+                      "unidad_medida": {
+                        "type": "string",
+                        "enum": ["kg", "g", "l", "ml", "unidad"],
+                        "example": "kg",
+                        "description": "Unidad de medida de la cantidad utilizada."
+                      }
+                    }
+                  }
+                }
+              },
+              "required": [
+                "id_queso",
+                "cantidad_producida",
+                "responsable",
+                "estado",
+                "detalles"
+              ]
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "Producción registrada exitosamente.",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "success": {
+                  "type": "boolean",
+                  "example": true
+                },
+                "message": {
+                  "type": "string",
+                  "example": "Producción registrada correctamente."
+                },
+                "id_produccion": {
+                  "type": "integer",
+                  "example": 123
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Error en la solicitud. Algún campo obligatorio está ausente o tiene un valor no permitido.",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "success": {
+                  "type": "boolean",
+                  "example": false
+                },
+                "message": {
+                  "type": "string",
+                  "example": "Estado inválido. Debe ser uno de: en proceso, finalizado, cancelado."
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Error interno del servidor.",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "success": {
+                  "type": "boolean",
+                  "example": false
+                },
+                "message": {
+                  "type": "string",
+                  "example": "Error del servidor."
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/produccion/": {
+      "get": {
+        "description": "Devuelve la lista de todas las producciones registradas.",
+        "responses": {
+          "200": {
+            "description": "Lista de producciones obtenida correctamente.",
+            "schema": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "id_produccion": {
+                    "type": "integer",
+                    "example": 1
+                  },
+                  "id_queso": {
+                    "type": "integer",
+                    "example": 2
+                  },
+                  "fecha_produccion": {
+                    "type": "string",
+                    "format": "date-time",
+                    "example": "2025-03-30T14:30:00Z"
+                  },
+                  "cantidad_producida": {
+                    "type": "integer",
+                    "example": 10
+                  },
+                  "peso_total_kg": {
+                    "type": "number",
+                    "format": "decimal",
+                    "example": 25.0
+                  },
+                  "responsable": {
+                    "type": "string",
+                    "example": "Juan Pérez"
+                  },
+                  "estado": {
+                    "type": "string",
+                    "example": "en proceso"
+                  },
+                  "observaciones": {
+                    "type": "string",
+                    "example": "Pendiente de revisión."
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Error interno del servidor.",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "error": {
+                  "type": "string",
+                  "example": "Error al obtener la producción."
+                }
+              }
+            }
+          }
+        }
+      }
     }
   }
 }
