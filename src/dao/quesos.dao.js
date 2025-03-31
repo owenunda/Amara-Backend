@@ -22,23 +22,22 @@ class QuesosDao {
         .request()
         .input('nombre', mssql.NVarChar, nombre)
         .query('SELECT COUNT(*) AS count FROM queso WHERE nombre = @nombre')
-      if (checkResul.recordset[0] > 0) {
-        throw Error('El nombre de queso ya existe')
+      if (checkResul.recordset[0].count > 0) {
+        throw new Error('El nombre de queso ya existe')
       }
 
-      const result = await pool
+      await pool
         .request()
         .input('nombre', mssql.NVarChar, nombre)
         .input('tipo', mssql.NVarChar, tipo)
-        .input('peso_unidad_kg', mssql.Decimal, peso_unidad_kg)
-        .input('cantidad_disponible', mssql.Decimal, cantidad_disponible)
+        .input('peso_unidad_kg', mssql.Decimal(10, 2), peso_unidad_kg)
+        .input('cantidad_disponible', mssql.Decimal(10, 2), cantidad_disponible)
         .input('ubicacion', mssql.NVarChar, ubicacion)
         .input('precio', mssql.Decimal, precio)
         .query('INSERT INTO queso(nombre, tipo, peso_unidad_kg, cantidad_disponible, ubicacion, precio) values (@nombre, @tipo, @peso_unidad_kg, @cantidad_disponible, @ubicacion, @precio)')
       return { success: true, message: 'creado correctamente' }
     } catch (error) {
-      console.error('Error en la creacion:', error)
-      throw new Error(error.message)
+      return { success: false, message: error.message }
     }
   }
 }
