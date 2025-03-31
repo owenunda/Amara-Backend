@@ -1,3 +1,4 @@
+/* eslint-disable camelcase */
 import { dbConnect, mssql } from '../config/conenectionSQLServer.js'
 
 const getUserByUsername = async (nombre_usuario) => {
