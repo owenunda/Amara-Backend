@@ -5,10 +5,10 @@
     "description": "Esta API permite gestionar todo el sistema de invitenario de la produccion de quesos de la empresa AMARA SAS",
     "version": "1.0.0"
   },
-  "host": "amara-backend-production.up.railway.app",
+  "host": "localhost:4000",
   "basePath": "/",
   "schemes": [
-    "https"
+    "http"
   ],
   "paths": {
     "/api/perfil": {
@@ -316,9 +316,6 @@
                 "tipo": {
                   "example": "any"
                 },
-                "peso_unidad_kg": {
-                  "example": "any"
-                },
                 "cantidad_disponible": {
                   "example": "any"
                 },
@@ -346,6 +343,64 @@
       }
     },
     "/api/quesos/": {
+      "get": {
+        "description": "",
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    },
+    "/api/produccion/create-produccion": {
+      "post": {
+        "description": "",
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "id_queso": {
+                  "example": "any"
+                },
+                "cantidad_producida": {
+                  "example": "any"
+                },
+                "responsable": {
+                  "example": "any"
+                },
+                "estado": {
+                  "example": "any"
+                },
+                "observaciones": {
+                  "example": "any"
+                },
+                "detalles": {
+                  "example": "any"
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "Created"
+          },
+          "400": {
+            "description": "Bad Request"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    },
+    "/api/produccion/": {
       "get": {
         "description": "",
         "responses": {
