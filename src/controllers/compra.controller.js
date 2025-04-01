@@ -1,29 +1,20 @@
 /* eslint-disable camelcase */
 import CompraService from '../services/compra.service.js'
+import { Router } from 'express'
+const router = Router()
 
-class compraController {
-  static async registrarCompra (req, res) {
-    try {
-      const { cedula_proveedor, metodo_pago, observaciones, detalles } = req.body
+router.post('/create-compra', async (req, res) => {
+  try {
+    const response = await CompraService.registrarCompra(req.body)
 
-      if (!cedula_proveedor || !metodo_pago || !detalles || !observaciones) {
-        return res.status(400).json({ success: false, message: 'Todos los campos son obligatorios' })
-      }
-      const total = detalles.reduce((sum, detalle) =>
-        sum + (detalle.cantidad * detalle.precio_unitario), 0
-      )
-
-      const response = await CompraService.registrarCompra(cedula_proveedor, metodo_pago, observaciones, detalles, total)
-
-      if (response.success) {
-        return res.status(201).json({ message: response.message })
-      } else {
-        return res.status(500).json({ Error: response.message })
-      }
-    } catch (error) {
-      return res.status(500).json({ Error: 'Error del servidor' })
+    if (response.success) {
+      return res.status(201).json({ message: response.message })
+    } else {
+      return res.status(response.status).json({ Error: response.message })
     }
+  } catch (error) {
+    return res.status(500).json({ Error: 'Error del servidor' })
   }
-}
+})
 
-export default compraController
+export default router

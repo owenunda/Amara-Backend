@@ -6,7 +6,19 @@ class QuesosService {
     return await QuesosDao.obtenerQuesos()
   }
 
-  static async registrarQuesos (nombre, tipo, peso_unidad_kg, cantidad_disponible, ubicacion, precio) {
+  static async registrarQuesos (data) {
+    const { nombre, tipo, cantidad_disponible, ubicacion, precio } = data
+    if (!nombre || !tipo || !cantidad_disponible || !ubicacion || !precio) {
+      return { success: false, message: 'Todos los campos son obligatorios', status: 400 }
+    }
+    if (precio <= 0) {
+      return { success: false, message: 'El precio del queso debe ser mayor a 0', status: 400 }
+    }
+    if (cantidad_disponible <= 0) {
+      return { success: false, message: 'La cantidad de quesos  debe ser mayor a 0', status: 400 }
+    }
+
+    const peso_unidad_kg = 2.5
     return await QuesosDao.registrarQueso(nombre, tipo, peso_unidad_kg, cantidad_disponible, ubicacion, precio)
   }
 }

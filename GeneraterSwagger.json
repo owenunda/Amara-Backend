@@ -127,53 +127,12 @@
         }
       }
     },
-    "/api/cliente/createCltProv": {
+    "/api/cliente/create": {
       "post": {
         "description": "",
-        "parameters": [
-          {
-            "name": "body",
-            "in": "body",
-            "schema": {
-              "type": "object",
-              "properties": {
-                "cedula_nit": {
-                  "example": "any"
-                },
-                "nombre": {
-                  "example": "any"
-                },
-                "apellido": {
-                  "example": "any"
-                },
-                "celular": {
-                  "example": "any"
-                },
-                "tipo_persona": {
-                  "example": "any"
-                },
-                "edad": {
-                  "example": "any"
-                },
-                "direccion": {
-                  "example": "any"
-                },
-                "correo": {
-                  "example": "any"
-                },
-                "tipo_relacion": {
-                  "example": "any"
-                }
-              }
-            }
-          }
-        ],
         "responses": {
           "201": {
             "description": "Created"
-          },
-          "400": {
-            "description": "Bad Request"
           },
           "500": {
             "description": "Internal Server Error"
@@ -181,53 +140,12 @@
         }
       }
     },
-    "/api/proveedor/createCltProv": {
+    "/api/proveedor/create": {
       "post": {
         "description": "",
-        "parameters": [
-          {
-            "name": "body",
-            "in": "body",
-            "schema": {
-              "type": "object",
-              "properties": {
-                "cedula_nit": {
-                  "example": "any"
-                },
-                "nombre": {
-                  "example": "any"
-                },
-                "apellido": {
-                  "example": "any"
-                },
-                "celular": {
-                  "example": "any"
-                },
-                "tipo_persona": {
-                  "example": "any"
-                },
-                "edad": {
-                  "example": "any"
-                },
-                "direccion": {
-                  "example": "any"
-                },
-                "correo": {
-                  "example": "any"
-                },
-                "tipo_relacion": {
-                  "example": "any"
-                }
-              }
-            }
-          }
-        ],
         "responses": {
           "201": {
             "description": "Created"
-          },
-          "400": {
-            "description": "Bad Request"
           },
           "500": {
             "description": "Internal Server Error"
@@ -261,38 +179,12 @@
         }
       }
     },
-    "/api/compra/": {
+    "/api/compra/create-compra": {
       "post": {
         "description": "",
-        "parameters": [
-          {
-            "name": "body",
-            "in": "body",
-            "schema": {
-              "type": "object",
-              "properties": {
-                "cedula_proveedor": {
-                  "example": "any"
-                },
-                "metodo_pago": {
-                  "example": "any"
-                },
-                "observaciones": {
-                  "example": "any"
-                },
-                "detalles": {
-                  "example": "any"
-                }
-              }
-            }
-          }
-        ],
         "responses": {
           "201": {
             "description": "Created"
-          },
-          "400": {
-            "description": "Bad Request"
           },
           "500": {
             "description": "Internal Server Error"
@@ -303,38 +195,9 @@
     "/api/quesos/create-queso": {
       "post": {
         "description": "",
-        "parameters": [
-          {
-            "name": "body",
-            "in": "body",
-            "schema": {
-              "type": "object",
-              "properties": {
-                "nombre": {
-                  "example": "any"
-                },
-                "tipo": {
-                  "example": "any"
-                },
-                "cantidad_disponible": {
-                  "example": "any"
-                },
-                "ubicacion": {
-                  "example": "any"
-                },
-                "precio": {
-                  "example": "any"
-                }
-              }
-            }
-          }
-        ],
         "responses": {
           "201": {
             "description": "Created"
-          },
-          "400": {
-            "description": "Bad Request"
           },
           "500": {
             "description": "Internal Server Error"
@@ -358,41 +221,9 @@
     "/api/produccion/create-produccion": {
       "post": {
         "description": "",
-        "parameters": [
-          {
-            "name": "body",
-            "in": "body",
-            "schema": {
-              "type": "object",
-              "properties": {
-                "id_queso": {
-                  "example": "any"
-                },
-                "cantidad_producida": {
-                  "example": "any"
-                },
-                "responsable": {
-                  "example": "any"
-                },
-                "estado": {
-                  "example": "any"
-                },
-                "observaciones": {
-                  "example": "any"
-                },
-                "detalles": {
-                  "example": "any"
-                }
-              }
-            }
-          }
-        ],
         "responses": {
           "201": {
             "description": "Created"
-          },
-          "400": {
-            "description": "Bad Request"
           },
           "500": {
             "description": "Internal Server Error"

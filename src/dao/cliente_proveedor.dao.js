@@ -13,17 +13,6 @@ class CreateClienteProveedorDao {
     tipo_relacion
   ) {
     try {
-      const tiposPersonaValidos = ['juridica', 'natural']
-      const tiposRelacionValidos = ['cliente', 'proveedor']
-
-      if (!tiposPersonaValidos.includes(tipo_persona.toLowerCase())) {
-        throw new Error("El tipo de persona debe ser 'juridica' o 'natural'")
-      }
-
-      if (!tiposRelacionValidos.includes(tipo_relacion.toLowerCase())) {
-        throw new Error("El tipo de relación debe ser 'cliente' o 'proveedor'")
-      }
-
       const pool = await dbConnect
       // verificamos si ya existe una pesona con esa cedula
       const checkQuery = 'SELECT COUNT(*) AS count FROM persona WHERE cedula_nit = @cedula_nit'
