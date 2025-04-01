@@ -476,6 +476,7 @@
     },
     "/api/produccion/create-produccion": {
       "post": {
+        "tags": ["Produccion"],
         "description": "Registra una nueva producción junto con los detalles de las materias primas utilizadas.",
         "parameters": [
           {
@@ -606,6 +607,7 @@
     },
     "/api/produccion/": {
       "get": {
+        "tags": ["Produccion"],
         "description": "Devuelve la lista de todas las producciones registradas.",
         "responses": {
           "200": {

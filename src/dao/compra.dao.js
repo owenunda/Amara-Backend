@@ -26,7 +26,8 @@ class compraDao {
         if (materiaResult.recordset[0].existe === 0) {
           return {
             success: false,
-            message: `Error: La materia prima con ID ${detalle.id_materia} no existe`
+            message: `Error: La materia prima con ID ${detalle.id_materia} no existe`,
+            status: 400
           }
         }
       }
@@ -47,8 +48,7 @@ class compraDao {
 
       return { success: true, message: 'Compra registrada correctamente', id_compra }
     } catch (error) {
-      console.error('Error al registrar la compra:', error.message)
-      return { success: false, message: `Error al registrar la compra: ${error.message}` }
+      return { success: false, message: `Error al registrar la compra: ${error.message}`, status: 400 }
     }
   }
 }

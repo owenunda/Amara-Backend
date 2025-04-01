@@ -10,7 +10,6 @@ class materiaPrimaDao {
   static async obtenerIdMateriasPrimas () {
     const pool = await dbConnect
     const result = await pool.request().query('SELECT id_materia, nombre FROM materia_prima')
-    console.log(result.recordset)
     return result.recordset
   }
 }

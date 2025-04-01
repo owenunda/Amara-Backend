@@ -10,12 +10,6 @@ class QuesosDao {
 
   static async registrarQueso (nombre, tipo, peso_unidad_kg, cantidad_disponible, ubicacion, precio) {
     try {
-      if (precio <= 0) {
-        throw new Error('El precio del queso debe ser mayor a 0')
-      }
-      if (precio <= 0) {
-        throw new Error('La cantidad de quesos  debe ser mayor a 0')
-      }
       const pool = await dbConnect
       // verificamos si el queso ya existe!
       const checkResul = await pool
@@ -23,7 +17,7 @@ class QuesosDao {
         .input('nombre', mssql.NVarChar, nombre)
         .query('SELECT COUNT(*) AS count FROM queso WHERE nombre = @nombre')
       if (checkResul.recordset[0].count > 0) {
-        throw new Error('El nombre de queso ya existe')
+        return { success: false, message: 'El nombre de queso ya existe', status: 400 }
       }
 
       await pool
