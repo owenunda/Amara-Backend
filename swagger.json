@@ -619,16 +619,16 @@
                 "properties": {
                   "id_produccion": {
                     "type": "integer",
-                    "example": 1
+                    "example": 32
                   },
-                  "id_queso": {
-                    "type": "integer",
-                    "example": 2
+                  "nombre_queso": {
+                    "type": "string",
+                    "example": "Queso Mozzarella"
                   },
                   "fecha_produccion": {
                     "type": "string",
                     "format": "date-time",
-                    "example": "2025-03-30T14:30:00Z"
+                    "example": "2025-03-31T17:11:38.810Z"
                   },
                   "cantidad_producida": {
                     "type": "integer",
@@ -645,11 +645,11 @@
                   },
                   "estado": {
                     "type": "string",
-                    "example": "en proceso"
+                    "example": "cancelado"
                   },
                   "observaciones": {
                     "type": "string",
-                    "example": "Pendiente de revisión."
+                    "example": "Producción en curso, buena calidad."
                   }
                 }
               }
