@@ -1,6 +1,7 @@
 import { Router } from 'express'
 import { login } from '../controllers/auth.Controller.js'
 import jwt from 'jsonwebtoken'
+import config from '../config/envConfig.js'
 
 const router = Router()
 router.post('/login', login)
@@ -12,7 +13,7 @@ router.get('/verify', (req, res) => {
     return res.status(401).json({ message: 'Token requerido' })
   }
 
-  jwt.verify(token, process.env.JWT_SECRET, (err, decoded) => {
+  jwt.verify(token, config.jwtSecret, (err, decoded) => {
     if (err) {
       return res.status(403).json({ message: 'Token inválido o expirado' })
     }
