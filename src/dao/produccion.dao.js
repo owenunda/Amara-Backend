@@ -19,7 +19,6 @@ class ProduccionDao {
       }
 
       const id_produccion = result.recordset[0].id_produccion_creada
-      // Validar que todas las materias primas existan
       // Validar existencia de materias primas
       for (const detalle of detalles) {
         const materiaResult = await pool
