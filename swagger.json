@@ -669,6 +669,120 @@
           }
         }
       }
+    },
+    "/api/venta/": {
+      "post": {
+        "tags": ["Ventas"],
+        "description": "Registra una nueva venta en el sistema, asociada a un cliente. Permite especificar los detalles de los quesos vendidos con diferentes presentaciones.",
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "type": "object",
+              "properties": {
+                "cedula_cliente": {
+                  "type": "string",
+                  "example": "123456789",
+                  "description": "Cédula o NIT del cliente asociado a la venta."
+                },
+                "detalles": {
+                  "type": "array",
+                  "description": "Lista de detalles de los quesos vendidos en la transacción.",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "id_queso": {
+                        "type": "integer",
+                        "example": 1,
+                        "description": "ID del queso vendido."
+                      },
+                      "presentacion": {
+                        "type": "string",
+                        "enum": ["unidad", "canasta", "libra", "kilogramo"],
+                        "example": "unidad",
+                        "description": "Presentación en la que se vende el queso."
+                      },
+                      "cantidad": {
+                        "type": "integer",
+                        "example": 50,
+                        "description": "Cantidad de quesos vendidos en la presentación especificada."
+                      },
+                      "precio_unitario": {
+                        "type": "number",
+                        "example": 30000,
+                        "description": "Precio unitario del queso en la presentación especificada."
+                      }
+                    },
+                    "required": [
+                      "id_queso",
+                      "presentacion",
+                      "cantidad",
+                      "precio_unitario"
+                    ]
+                  }
+                }
+              },
+              "required": ["cedula_cliente", "detalles"]
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "Venta registrada exitosamente.",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "success": {
+                  "type": "boolean",
+                  "example": true
+                },
+                "message": {
+                  "type": "string",
+                  "example": "Venta registrada correctamente."
+                },
+                "id_venta": {
+                  "type": "integer",
+                  "example": 123
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Solicitud incorrecta. Datos inválidos o incompletos.",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "success": {
+                  "type": "boolean",
+                  "example": false
+                },
+                "message": {
+                  "type": "string",
+                  "example": "El cliente con cédula 123456789 no existe en el sistema."
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Error interno del servidor.",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "success": {
+                  "type": "boolean",
+                  "example": false
+                },
+                "message": {
+                  "type": "string",
+                  "example": "Error al procesar la venta."
+                }
+              }
+            }
+          }
+        }
+      }
     }
   }
 }
