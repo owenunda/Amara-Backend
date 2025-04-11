@@ -5,9 +5,9 @@
     "description": "Esta API permite gestionar todo el sistema de invitenario de la produccion de quesos de la empresa AMARA SAS",
     "version": "1.0.0"
   },
-  "host": "amara-backend-production-2ae0.up.railway.app",
+  "host": "localhost:4000",
   "basePath": "/",
-  "schemes": ["https"],
+  "schemes": ["http"],
   "paths": {
     "/api/login": {
       "post": {
@@ -138,7 +138,7 @@
         }
       }
     },
-    "/api/cliente/createCltProv": {
+    "/api/cliente/create": {
       "post": {
         "tags": ["Cliente"],
         "description": "Registra un nuevo cliente en el sistema. Si el cliente es una empresa (tipo_persona = 'juridica'), los campos 'apellido' y 'edad' pueden ser nulos. \nSi es una persona (tipo_persona = 'natural')",
@@ -212,7 +212,7 @@
         }
       }
     },
-    "/api/proveedor/createCltProv": {
+    "/api/proveedor/create": {
       "post": {
         "tags": ["Proveedor"],
         "description": "Registra un nuevo proveedor en el sistema. Si el proveedor es una empresa (tipo_persona = 'juridica'), los campos 'apellido' y 'edad' pueden ser nulos. \nSi es una persona (tipo_persona = 'natural')",
