@@ -19,7 +19,6 @@ class ProduccionDao {
       }
 
       const id_produccion = result.recordset[0].id_produccion_creada
-      // Validar que todas las materias primas existan
       // Validar existencia de materias primas
       for (const detalle of detalles) {
         const materiaResult = await pool
@@ -57,10 +56,23 @@ class ProduccionDao {
 
   static async ObtenerProduccion () {
     try {
+      const query = `SELECT 
+    p.id_produccion,
+    q.nombre AS nombre_queso,
+    p.fecha_produccion,
+    p.cantidad_producida,
+    p.peso_total_kg,
+    p.responsable,
+    p.estado,
+    p.observaciones
+  FROM 
+    produccion p
+  JOIN 
+    queso q ON p.id_queso = q.id_queso;`
       const pool = await dbConnect
       const result = await pool
         .request()
-        .query('SELECT * FROM produccion')
+        .query(query)
       return result.recordset
     } catch (error) {
       console.error('Error al registrar la compra:', error.message)

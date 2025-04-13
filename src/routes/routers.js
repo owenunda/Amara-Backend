@@ -7,6 +7,7 @@ import materiaPrimaRouters from '../controllers/materiaPrima.controller.js'
 import compraRouters from '../controllers/compra.controller.js'
 import quesosRouters from '../controllers/quesos.controller.js'
 import ProduccionRouter from '../controllers/produccion.controller.js'
+import ventaRouter from '../controllers/venta.controller.js'
 const router = express.Router()
 
 router.get('/perfil', authMiddleware, (req, res) => {
@@ -22,5 +23,6 @@ router.use('/materias-primas', materiaPrimaRouters)
 router.use('/compra', compraRouters)
 router.use('/quesos', quesosRouters)
 router.use('/produccion', ProduccionRouter)
+router.use('/venta', ventaRouter)
 
 export default router
