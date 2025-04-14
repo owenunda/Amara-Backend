@@ -5,7 +5,7 @@
     "description": "Esta API permite gestionar todo el sistema de invitenario de la produccion de quesos de la empresa AMARA SAS",
     "version": "1.0.0"
   },
-  "host": "amara-backend-production-2ae0.up.railway.app",
+  "host": "amara-backend-production-2ae0.up.railway.app/",
   "basePath": "/",
   "schemes": ["https"],
   "paths": {
@@ -121,8 +121,34 @@
             "name": "id",
             "in": "path",
             "required": true,
-            "type": "string",
+            "type": "integer",
             "description": "ID único de la persona a consultar."
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Información de la persona obtenida correctamente."
+          },
+          "404": {
+            "description": "No encontrado. No existe una persona con ese ID."
+          },
+          "500": {
+            "description": "Error interno del servidor."
+          }
+        }
+      }
+    },
+    "/api/personas/{id}/": {
+      "delete": {
+        "tags": ["Personas"],
+        "description": "Obtiene la información de una persona específica según su ID.",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "integer",
+            "description": "ID único para eliminar persona."
           }
         ],
         "responses": {
