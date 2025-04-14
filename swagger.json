@@ -696,6 +696,32 @@
         }
       }
     },
+    "/api/produccion/{id}/": {
+      "delete": {
+        "tags": ["Produccion"],
+        "description": "elimina una produccion por ID.",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "integer",
+            "description": "ID único para eliminar persona."
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Información de la persona obtenida correctamente."
+          },
+          "404": {
+            "description": "No encontrado. No existe una produccion con ese ID."
+          },
+          "500": {
+            "description": "Error interno del servidor."
+          }
+        }
+      }
+    },
     "/api/venta/create": {
       "post": {
         "tags": ["Ventas"],
