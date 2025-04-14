@@ -11,7 +11,7 @@ router.post('/create', async (req, res) => {
     if (response.success) {
       return res.status(201).json({ message: response.message })
     } else {
-      return res.status(response.status).json({ Error: response.message })
+      return res.status(400).json({ Error: response.message })
     }
   } catch (error) {
     return res.status(500).json({ Error: 'Error del servidor' })

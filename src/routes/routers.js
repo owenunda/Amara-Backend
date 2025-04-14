@@ -19,9 +19,9 @@ router.use('/', authRoutes)
 
 router.use('/cliente', createClientProveedor)
 router.use('/proveedor', createClientProveedor)
-router.use('/materias-primas', materiaPrimaRouters)
+router.use('/materia-prima', materiaPrimaRouters)
 router.use('/compra', compraRouters)
-router.use('/quesos', quesosRouters)
+router.use('/queso', quesosRouters)
 router.use('/produccion', ProduccionRouter)
 router.use('/venta', ventaRouter)
 
