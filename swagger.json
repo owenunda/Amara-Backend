@@ -339,7 +339,7 @@
     "/api/compra/": {
       "post": {
         "tags": ["Compra"],
-        "description": "Registra una nueva compra en el sistema, asociada a un proveedor. También permite agregar detalles de los productos adquiridos.",
+        "description": "Registra una nueva compra en el sistema, asociada a un proveedor. También permite agregar detalles de los productos adquiridos. las unidades de medida permitidas son 'kg', 'g', 'L', 'ml', 'unidad'",
         "parameters": [
           {
             "name": "body",
