@@ -27,4 +27,18 @@ router.get('/', async (req, res) => {
   }
 })
 
+router.delete('/:id', async (req, res) => {
+  try {
+    const { id } = req.params
+    const response = await ProduccionService.eliminarProduccion(id)
+    if (!response.success) {
+      res.status(400).json({ message: response.message })
+    } else {
+      res.status(200).json({ message: response.message })
+    }
+  } catch (error) {
+    res.status(500).json({ message: 'Error del servidor' })
+  }
+})
+
 export default router

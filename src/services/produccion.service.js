@@ -37,6 +37,10 @@ class ProduccionService {
   static async obtenerProduccion () {
     return await ProduccionDao.ObtenerProduccion()
   }
+
+  static async eliminarProduccion (id) {
+    return await ProduccionDao.eliminarProduccion(id)
+  }
 }
 
 export default ProduccionService

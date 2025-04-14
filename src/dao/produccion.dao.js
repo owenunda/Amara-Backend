@@ -79,6 +79,19 @@ class ProduccionDao {
       return { success: false, message: `Error al obtener la produccion: ${error.message}` }
     }
   }
+
+  static async eliminarProduccion (id) {
+    try {
+      const pool = await dbConnect
+      await pool
+        .request()
+        .input('id', mssql.Int, id)
+        .query('DELETE FROM produccion WHERE id_produccion = @id ')
+      return { success: true, message: 'Eliminado correctamente' }
+    } catch (error) {
+      return { success: false, message: error.message, status: 400 }
+    }
+  }
 }
 
 export default ProduccionDao

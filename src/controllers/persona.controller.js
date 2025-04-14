@@ -32,7 +32,7 @@ router.delete('/:id', async (req, res) => {
 
     const response = await PersonaService.eliminarPersona(id)
     if (!response.success) {
-      return res.status(200).json({ message: response.message })
+      res.status(200).json({ message: response.message })
     } else {
       res.status(200).json({ message: response.message })
     }
