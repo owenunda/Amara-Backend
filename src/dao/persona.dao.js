@@ -22,6 +22,7 @@ class PersonaDao {
         .request()
         .input('id', mssql.Int, id)
         .query('DELETE FROM persona WHERE id_persona = @id')
+
       return { success: true, message: 'Eliminado correctamente' }
     } catch (error) {
       return { success: false, message: error.message, status: 400 }

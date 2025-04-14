@@ -32,7 +32,7 @@ router.delete('/:id', async (req, res) => {
     const { id } = req.params
     const response = await ProduccionService.eliminarProduccion(id)
     if (!response.success) {
-      res.status(400).json({ message: response.message })
+      res.status(400).json({ message: 'no se pudo eliminar' })
     } else {
       res.status(200).json({ message: response.message })
     }
