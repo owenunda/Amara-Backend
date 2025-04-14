@@ -3,7 +3,7 @@ import CompraService from '../services/compra.service.js'
 import { Router } from 'express'
 const router = Router()
 
-router.post('/create-compra', async (req, res) => {
+router.post('/create', async (req, res) => {
   try {
     const response = await CompraService.registrarCompra(req.body)
 

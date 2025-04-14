@@ -31,7 +31,7 @@ class QuesosDao {
         .query('INSERT INTO queso(nombre, tipo, peso_unidad_kg, cantidad_disponible, ubicacion, precio) values (@nombre, @tipo, @peso_unidad_kg, @cantidad_disponible, @ubicacion, @precio)')
       return { success: true, message: 'creado correctamente' }
     } catch (error) {
-      return { success: false, message: error.message }
+      return { success: false, message: error.message, status: 400 }
     }
   }
 }

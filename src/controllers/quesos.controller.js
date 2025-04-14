@@ -4,7 +4,7 @@ import { Router } from 'express'
 
 const router = Router()
 
-router.post('/create-queso', async (req, res) => {
+router.post('/create', async (req, res) => {
   try {
     const response = await QuesosService.registrarQuesos(req.body)
     if (response.success) {
