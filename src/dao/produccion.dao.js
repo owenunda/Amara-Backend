@@ -15,7 +15,7 @@ class ProduccionDao {
         .execute('sp_insertar_produccion')
       // Validar si se obtuvo el ID correctamente
       if (!result.recordset || result.recordset.length === 0) {
-        return { success: false, message: 'Error: No se pudo obtener el ID de la producción' }
+        return { success: false, message: 'Error: No se pudo obtener el ID de la producción', status: 400 }
       }
 
       const id_produccion = result.recordset[0].id_produccion_creada
@@ -29,7 +29,8 @@ class ProduccionDao {
         if (!materiaResult.recordset || materiaResult.recordset[0].existe === 0) {
           return {
             success: false,
-            message: `Error: La materia prima con ID ${detalle.id_materia} no existe`
+            message: `Error: La materia prima con ID ${detalle.id_materia} no existe`,
+            status: 400
           }
         }
       }
@@ -49,8 +50,7 @@ class ProduccionDao {
       }
       return { success: true, message: 'produccion registrada correctamente' }
     } catch (error) {
-      console.error('Error al registrar la compra:', error.message)
-      return { success: false, message: `Error al registrar la produccion: ${error.message}` }
+      return { success: false, message: `Error al registrar la produccion: ${error.message}`, status: 400 }
     }
   }
 

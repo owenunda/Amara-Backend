@@ -286,7 +286,7 @@
         }
       }
     },
-    "/api/materias-primas/": {
+    "/api/materia-prima": {
       "get": {
         "tags": ["Materias Primas"],
         "description": "Obtiene una lista de todas las materias primas registradas en el sistema.",
@@ -300,7 +300,7 @@
         }
       }
     },
-    "/api/materias-primas/nombres-id": {
+    "/api/materia-prima/nombres-id": {
       "get": {
         "tags": ["Materias Primas"],
         "description": "Obtiene una lista de materias primas con solo su ID y nombre.",
@@ -336,7 +336,7 @@
         }
       }
     },
-    "/api/compra/": {
+    "/api/compra/create": {
       "post": {
         "tags": ["Compra"],
         "description": "Registra una nueva compra en el sistema, asociada a un proveedor. También permite agregar detalles de los productos adquiridos.",
@@ -405,7 +405,7 @@
         }
       }
     },
-    "/api/quesos/create-queso": {
+    "/api/queso/create": {
       "post": {
         "tags": ["Quesos"],
         "description": "Crea un nuevo registro de queso en la base de datos.",
@@ -460,7 +460,7 @@
         }
       }
     },
-    "/api/quesos/": {
+    "/api/queso": {
       "get": {
         "tags": ["Quesos"],
         "description": "Obtiene la lista de todos los quesos registrados.",
@@ -474,7 +474,7 @@
         }
       }
     },
-    "/api/produccion/create-produccion": {
+    "/api/produccion/create": {
       "post": {
         "tags": ["Produccion"],
         "description": "Registra una nueva producción junto con los detalles de las materias primas utilizadas.",
@@ -605,7 +605,7 @@
         }
       }
     },
-    "/api/produccion/": {
+    "/api/produccion": {
       "get": {
         "tags": ["Produccion"],
         "description": "Devuelve la lista de todas las producciones registradas.",
@@ -670,7 +670,7 @@
         }
       }
     },
-    "/api/venta/": {
+    "/api/venta/create": {
       "post": {
         "tags": ["Ventas"],
         "description": "Registra una nueva venta en el sistema, asociada a un cliente. Permite especificar los detalles de los quesos vendidos con diferentes presentaciones.",
