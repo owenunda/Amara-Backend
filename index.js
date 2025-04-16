@@ -7,6 +7,7 @@ import { createRequire } from 'module'
 import config from './src/config/envConfig.js'
 const require = createRequire(import.meta.url)
 const swaggerDocumentation = require('./swagger.json')
+// const swaggerDocumentationTest = require('./GeneraterSwagger.json')
 
 const app = express()
 

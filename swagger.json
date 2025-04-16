@@ -136,9 +136,7 @@
             "description": "Error interno del servidor."
           }
         }
-      }
-    },
-    "/api/personas/{id}/": {
+      },
       "delete": {
         "tags": ["Personas"],
         "description": "Obtiene la información de una persona específica según su ID.",
@@ -160,6 +158,38 @@
           },
           "500": {
             "description": "Error interno del servidor."
+          }
+        }
+      },
+      "put": {
+        "tags": ["Personas"],
+        "description": "Permite modificar la informacion de una persona, mediante su id, en el body solo envias la propiedad o las propiedades , con el valor que vas a modificar",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "direccion": {
+                  "example": "nueva dirreccion"
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "400": {
+            "description": "Bad Request"
           }
         }
       }
