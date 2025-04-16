@@ -15,11 +15,10 @@ class ProduccionDao {
         .execute('sp_insertar_produccion')
       // Validar si se obtuvo el ID correctamente
       if (!result.recordset || result.recordset.length === 0) {
-        return { success: false, message: 'Error: No se pudo obtener el ID de la producción' }
+        return { success: false, message: 'Error: No se pudo obtener el ID de la producción', status: 400 }
       }
 
       const id_produccion = result.recordset[0].id_produccion_creada
-      // Validar que todas las materias primas existan
       // Validar existencia de materias primas
       for (const detalle of detalles) {
         const materiaResult = await pool
@@ -30,7 +29,8 @@ class ProduccionDao {
         if (!materiaResult.recordset || materiaResult.recordset[0].existe === 0) {
           return {
             success: false,
-            message: `Error: La materia prima con ID ${detalle.id_materia} no existe`
+            message: `Error: La materia prima con ID ${detalle.id_materia} no existe`,
+            status: 400
           }
         }
       }
@@ -50,21 +50,46 @@ class ProduccionDao {
       }
       return { success: true, message: 'produccion registrada correctamente' }
     } catch (error) {
-      console.error('Error al registrar la compra:', error.message)
-      return { success: false, message: `Error al registrar la produccion: ${error.message}` }
+      return { success: false, message: `Error al registrar la produccion: ${error.message}`, status: 400 }
     }
   }
 
   static async ObtenerProduccion () {
     try {
+      const query = `SELECT 
+    p.id_produccion,
+    q.nombre AS nombre_queso,
+    p.fecha_produccion,
+    p.cantidad_producida,
+    p.peso_total_kg,
+    p.responsable,
+    p.estado,
+    p.observaciones
+  FROM 
+    produccion p
+  JOIN 
+    queso q ON p.id_queso = q.id_queso;`
       const pool = await dbConnect
       const result = await pool
         .request()
-        .query('SELECT * FROM produccion')
+        .query(query)
       return result.recordset
     } catch (error) {
       console.error('Error al registrar la compra:', error.message)
       return { success: false, message: `Error al obtener la produccion: ${error.message}` }
+    }
+  }
+
+  static async eliminarProduccion (id) {
+    try {
+      const pool = await dbConnect
+      await pool
+        .request()
+        .input('id', mssql.Int, id)
+        .query('DELETE FROM produccion WHERE id_produccion = @id ')
+      return { success: true, message: 'Eliminado correctamente' }
+    } catch (error) {
+      return { success: false, message: error.message, status: 400 }
     }
   }
 }

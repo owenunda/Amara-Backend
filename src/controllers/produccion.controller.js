@@ -4,17 +4,17 @@ import { Router } from 'express'
 
 const router = Router()
 
-router.post('/create-produccion', async (req, res) => {
+router.post('/create', async (req, res) => {
   try {
     const response = await ProduccionService.registrarProduccion(req.body)
-
+    console.log(response)
     if (response.success) {
       return res.status(201).json({ message: response.message })
     } else {
-      return res.status(response.status).json({ Error: response.message })
+      return res.status(response.status).json({ error: response.message })
     }
   } catch (error) {
-    return res.status(500).json({ Error: 'Error del servidor' })
+    return res.status(500).json({ error: 'Error del servidor' })
   }
 })
 
@@ -24,6 +24,16 @@ router.get('/', async (req, res) => {
     res.status(200).json(producciones)
   } catch (error) {
     res.status(500).json({ error: error.message })
+  }
+})
+
+router.delete('/:id', async (req, res) => {
+  try {
+    const { id } = req.params
+    const response = await ProduccionService.eliminarProduccion(id)
+    res.status(200).json({ message: response.message })
+  } catch (error) {
+    res.status(500).json({ message: 'Error del servidor' })
   }
 })
 

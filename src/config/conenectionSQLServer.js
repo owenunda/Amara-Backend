@@ -1,14 +1,13 @@
 import mssql from 'mssql'
-import dotenv from 'dotenv'
+import config from './envConfig.js'
 
-dotenv.config()
 // parametros de conexion
 const connectionSetting = {
-  server: process.env.DB_SERVER,
-  database: process.env.DB_NAME,
-  user: process.env.DB_USER,
-  password: process.env.DB_PASSWORD,
-  option: {
+  server: config.dbServer,
+  database: config.dbName,
+  user: config.dbUser,
+  password: config.dbPassword,
+  options: {
     encrypt: true,
     trustServerCertificate: true
   }
