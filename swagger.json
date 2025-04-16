@@ -722,7 +722,7 @@
         }
       }
     },
-    "/api/ventas/": {
+    "/api/venta/": {
       "get": {
         "tags": ["Ventas"],
         "description": "Obtiene una lista de todas las ventas registradas en el sistema.",
