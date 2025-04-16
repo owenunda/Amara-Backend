@@ -24,6 +24,10 @@ class VentaService {
     )
     return await VentaDao.registrarVenta(cedula_cliente, total_venta, detalles)
   }
+
+  static async obtenerVentas () {
+    return await VentaDao.obtenerVentas()
+  }
 }
 
 export default VentaService

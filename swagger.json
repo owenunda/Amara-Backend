@@ -722,6 +722,20 @@
         }
       }
     },
+    "/api/ventas/": {
+      "get": {
+        "tags": ["Ventas"],
+        "description": "Obtiene una lista de todas las ventas registradas en el sistema.",
+        "responses": {
+          "200": {
+            "description": "Lista de ventas obtenida correctamente."
+          },
+          "500": {
+            "description": "Error interno del servidor."
+          }
+        }
+      }
+    },
     "/api/venta/create": {
       "post": {
         "tags": ["Ventas"],

@@ -51,6 +51,18 @@ class VentaDao {
       return { success: false, message: `Error al registrar la venta: ${error.message}`, status: 400 }
     }
   }
+
+  static async obtenerVentas () {
+    try {
+      const pool = await dbConnect
+      const result = await pool
+        .request()
+        .execute('ObtenerVentasConCliente')
+      return result.recordset
+    } catch (error) {
+
+    }
+  }
 }
 
 export default VentaDao
