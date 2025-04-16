@@ -722,7 +722,11 @@
         }
       }
     },
+<<<<<<< HEAD
     "/api/venta/": {
+=======
+    "/api/ventas/": {
+>>>>>>> c2cedfee2d0de1156b6a44d78dbbb2c3200354f0
       "get": {
         "tags": ["Ventas"],
         "description": "Obtiene una lista de todas las ventas registradas en el sistema.",
