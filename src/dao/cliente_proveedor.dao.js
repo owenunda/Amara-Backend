@@ -45,6 +45,30 @@ class CreateClienteProveedorDao {
       throw new Error(error.message)
     }
   }
+
+  static async obtenerClientes () {
+    try {
+      const pool = await dbConnect
+      const result = await pool
+        .request()
+        .execute('sp_ObtenerClientesConDatosPersona')
+      return result.recordset
+    } catch (error) {
+
+    }
+  }
+
+  static async obtenerProveedores () {
+    try {
+      const pool = await dbConnect
+      const result = await pool
+        .request()
+        .execute('sp_ObtenerProveedorConDatosPersona')
+      return result.recordset
+    } catch (error) {
+
+    }
+  }
 }
 
 export default CreateClienteProveedorDao

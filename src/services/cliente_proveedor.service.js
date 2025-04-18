@@ -1,5 +1,6 @@
-import CreateClienteProveedorDao from '../dao/cliente_proveedor.dao.js'
 /* eslint-disable camelcase */
+import cliente_proveedorDao from '../dao/cliente_proveedor.dao.js'
+
 class Cliente_proveedorService {
   static async create (data) {
     const { cedula_nit, nombre, apellido, celular, tipo_persona, edad, direccion, correo, tipo_relacion } = data
@@ -21,7 +22,15 @@ class Cliente_proveedorService {
       return { success: false, message: "El tipo de relación debe ser 'cliente' o 'proveedor'", status: 400 }
     }
 
-    return await CreateClienteProveedorDao.create(cedula_nit, nombre, apellido, celular, tipo_persona, edad, direccion, correo, tipo_relacion)
+    return await cliente_proveedorDao.create(cedula_nit, nombre, apellido, celular, tipo_persona, edad, direccion, correo, tipo_relacion)
+  }
+
+  static async obtenerClientes () {
+    return await cliente_proveedorDao.obtenerClientes()
+  }
+
+  static async obtenerProveedores () {
+    return await cliente_proveedorDao.obtenerProveedores()
   }
 }
 

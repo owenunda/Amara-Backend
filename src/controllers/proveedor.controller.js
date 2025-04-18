@@ -18,4 +18,12 @@ router.post('/create', async (req, res) => {
   }
 })
 
+router.get('/', async (req, res) => {
+  try {
+    const clientes = await Cliente_proveedorService.obtenerProveedores()
+    return res.status(201).json(clientes)
+  } catch (error) {
+    return res.status(500).json({ Error: 'Error del servidor' })
+  }
+})
 export default router
