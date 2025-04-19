@@ -63,6 +63,18 @@ class VentaDao {
 
     }
   }
+
+  static async EliminarVenta (id) {
+    try {
+      const pool = await dbConnect
+      await pool
+        .request()
+        .input('id', mssql.Int, id)
+        .query('DELETE FROM venta WHERE id_venta = @id')
+    } catch (error) {
+
+    }
+  }
 }
 
 export default VentaDao

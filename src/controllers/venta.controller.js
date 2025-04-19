@@ -26,4 +26,14 @@ router.get('/', async (req, res) => {
   }
 })
 
+router.delete('/:id', async (req, res) => {
+  try {
+    const { id } = req.params
+    await VentaService.EliminarVenta(id)
+    res.status(200).json({ message: 'eliminado correctamente' })
+  } catch (error) {
+    res.status(500).json({ error: 'error del servidor' })
+  }
+})
+
 export default router

@@ -28,6 +28,14 @@ class VentaService {
   static async obtenerVentas () {
     return await VentaDao.obtenerVentas()
   }
+
+  static async EliminarVenta (id) {
+    if (typeof (id) === 'number') {
+      return { success: false, message: 'la id, tiene que ser un numero' }
+    }
+
+    return await VentaDao.EliminarVenta(id)
+  }
 }
 
 export default VentaService
