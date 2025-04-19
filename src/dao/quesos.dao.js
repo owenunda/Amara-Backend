@@ -34,6 +34,18 @@ class QuesosDao {
       return { success: false, message: error.message, status: 400 }
     }
   }
+
+  static async eliminarQueso (id) {
+    try {
+      const pool = await dbConnect
+      const result = await pool
+        .request()
+        .input('id', mssql.Int, id)
+        .query('DELETE FROM queso WHERE id_queso = @id')
+    } catch (error) {
+
+    }
+  }
 }
 
 export default QuesosDao

@@ -21,6 +21,14 @@ class QuesosService {
     const peso_unidad_kg = 2.5
     return await QuesosDao.registrarQueso(nombre, tipo, peso_unidad_kg, cantidad_disponible, ubicacion, precio)
   }
+
+  static async eliminarQueso (id) {
+    if (typeof (id) === 'number') {
+      return { success: false, message: 'la id, tiene que ser un numero' }
+    }
+
+    return await QuesosDao.eliminarQueso(id)
+  }
 }
 
 export default QuesosService
