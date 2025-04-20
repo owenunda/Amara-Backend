@@ -19,6 +19,14 @@ class CompraService {
 
     return await compraDao.registrarCompra(cedula_proveedor, metodo_pago, observaciones, detalles, total)
   }
+
+  static async ObtenerCompras () {
+    return await compraDao.ObtenerCompras()
+  }
+
+  static async EliminarCompra (id) {
+    return await compraDao.EliminarCompra(id)
+  }
 }
 
 export default CompraService

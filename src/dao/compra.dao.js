@@ -51,6 +51,26 @@ class compraDao {
       return { success: false, message: `Error al registrar la compra: ${error.message}`, status: 400 }
     }
   }
+
+  static async ObtenerCompras () {
+    try {
+      const pool = await dbConnect
+      const result = await pool
+        .request()
+        .execute('sp_ObtenerCompraConProveedor')
+      return result.recordset
+    } catch (error) {
+
+    }
+  }
+
+  static async EliminarCompra (id) {
+    const pool = await dbConnect
+    await pool
+      .request()
+      .input('id', mssql.Int, id)
+      .query('DELETE FROM compra WHERE id_compra = @id')
+  }
 }
 
 export default compraDao
