@@ -92,6 +92,48 @@ class ProduccionDao {
       return { success: false, message: error.message, status: 400 }
     }
   }
+
+  static async ModificarProduccion (id, id_queso, cantidad_producida, responsable, estado, observaciones) {
+    const campos = []
+
+    const pool = await dbConnect
+    const request = pool.request().input('id_produccion', mssql.Int, id)
+
+    if (id_queso !== undefined) {
+      campos.push('id_queso = @id_queso')
+      request.input('id_queso', mssql.Int, id_queso)
+    }
+    if (cantidad_producida !== undefined) {
+      campos.push('cantidad_producida = @cantidad_producida')
+      request.input('cantidad_producida', mssql.Int, cantidad_producida)
+    }
+    if (responsable !== undefined) {
+      campos.push('responsable = @responsable')
+      request.input('responsable', mssql.NVarChar(100), responsable)
+    }
+    if (responsable !== undefined) {
+      campos.push('responsable = @responsable')
+      request.input('responsable', mssql.NVarChar(100), responsable)
+    }
+    if (estado !== undefined) {
+      campos.push('estado = @estado')
+      request.input('estado', mssql.VarChar(20), estado)
+    }
+    if (observaciones !== undefined) {
+      campos.push('observaciones = @observaciones')
+      request.input('observaciones', mssql.VarChar(255), observaciones)
+    }
+    if (campos.length === 0) {
+      return { success: false, message: 'No se enviaron campos para actualizar' }
+    }
+    const query = `UPDATE produccion SET ${campos.join(', ')} WHERE id_produccion = @id_produccion`
+    try {
+      const result = await request.query(query)
+      return { success: true, message: 'Actualización realizada', data: result }
+    } catch (error) {
+      return { success: false, message: 'Error en la actualización', error: error.message }
+    }
+  }
 }
 
 export default ProduccionDao

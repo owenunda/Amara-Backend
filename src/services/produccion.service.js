@@ -41,6 +41,10 @@ class ProduccionService {
   static async eliminarProduccion (id) {
     return await ProduccionDao.eliminarProduccion(id)
   }
+
+  static async ModificarProduccion (id, id_queso, cantidad_producida, responsable, estado, observaciones) {
+    return await ProduccionDao.ModificarProduccion(id, id_queso, cantidad_producida, responsable, estado, observaciones)
+  }
 }
 
 export default ProduccionService

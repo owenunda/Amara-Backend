@@ -46,8 +46,6 @@ router.put('/:id', async (req, res) => {
   try {
     const { id } = req.params
     const { cedula_nit, nombre, apellido, celular, tipo_persona, edad, direccion, correo } = req.body
-    console.log(id, cedula_nit, nombre, apellido, celular, tipo_persona, edad, direccion, correo)
-
     const response = await PersonaService.modificarPersona(id, cedula_nit, nombre, apellido, celular, tipo_persona, edad, direccion, correo)
 
     if (response.success) {

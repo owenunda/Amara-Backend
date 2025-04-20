@@ -37,4 +37,21 @@ router.delete('/:id', async (req, res) => {
   }
 })
 
+router.put('/:id', async (req, res) => {
+  try {
+    const { id } = req.params
+    const { id_queso, cantidad_producida, responsable, estado, observaciones } = req.body
+
+    const response = await ProduccionService.ModificarProduccion(id, id_queso, cantidad_producida, responsable, estado, observaciones)
+
+    if (response.success) {
+      res.status(200).json({ message: response.message })
+    } else {
+      res.status(400).json({ message: response.message })
+    }
+  } catch (error) {
+
+  }
+})
+
 export default router
