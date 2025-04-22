@@ -50,7 +50,6 @@ router.put('/:id', async (req, res) => {
   try {
     const { id } = req.params
     const { id_queso, cantidad_producida, responsable, estado, observaciones } = req.body
-
     const response = await ProduccionService.ModificarProduccion(id, id_queso, cantidad_producida, responsable, estado, observaciones)
 
     if (response.success) {
