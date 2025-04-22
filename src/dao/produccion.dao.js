@@ -80,6 +80,20 @@ class ProduccionDao {
     }
   }
 
+  static async obtenerProduccionPorId (id) {
+    try {
+      const pool = await dbConnect
+      const result = await pool
+        .request()
+        .input('id_produccion', mssql.Int, id)
+        .query('SELECT * FROM produccion WHERE id_produccion = @id_produccion')
+      return result.recordset
+    } catch (error) {
+      console.error('Error al registrar la compra:', error.message)
+      return { success: false, message: `Error al obtener la produccion: ${error.message}` }
+    }
+  }
+
   static async eliminarProduccion (id) {
     try {
       const pool = await dbConnect

@@ -38,6 +38,10 @@ class ProduccionService {
     return await ProduccionDao.ObtenerProduccion()
   }
 
+  static async obtenerProduccionPorId (id) {
+    return await ProduccionDao.obtenerProduccionPorId(id)
+  }
+
   static async eliminarProduccion (id) {
     return await ProduccionDao.eliminarProduccion(id)
   }
