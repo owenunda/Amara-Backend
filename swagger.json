@@ -592,6 +592,73 @@
       }
     },
     "/api/queso/{id}": {
+      "get": {
+        "tags": ["Quesos"],
+        "description": "Obtiene la información de un queso en específico según su ID.",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      },
+      "put": {
+        "tags": ["Quesos"],
+        "description": "Permite modificar la informacion de un queso, mediante su id, en el body solo envias la propiedad o las propiedades , con el valor que vas a modificar",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "nombre": {
+                  "example": "any"
+                },
+                "tipo": {
+                  "example": "any"
+                },
+                "precio": {
+                  "example": "any"
+                },
+                "cantidad_disponible": {
+                  "example": "any"
+                },
+                "ubicacion": {
+                  "example": "any"
+                },
+                "peso_unidad_kg": {
+                  "example": "any"
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "400": {
+            "description": "Bad Request"
+          }
+        }
+      },
       "delete": {
         "tags": ["Quesos"],
         "description": "elimina un queso deacuerdo a su id",

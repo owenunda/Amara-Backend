@@ -17,12 +17,38 @@ router.post('/create', async (req, res) => {
   }
 })
 
+router.get('/:id', async (req, res) => {
+  try {
+    const { id } = req.params
+    const queso = await QuesosService.obtenerQuesoPorId(id)
+    return res.status(200).json(queso)
+  } catch (error) {
+    return res.status(500).json({ error: error.message })
+  }
+})
+
 router.get('/', async (req, res) => {
   try {
     const quesos = await QuesosService.obtenerQuesos()
     res.status(200).json(quesos)
   } catch (error) {
     res.status(500).json({ error: error.message })
+  }
+})
+
+router.put('/:id', async (req, res) => {
+  try {
+    const { id } = req.params
+    const { nombre, tipo, precio, cantidad_disponible, ubicacion, peso_unidad_kg } = req.body
+    const response = await QuesosService.ModificarQueso(id, nombre, tipo, precio, cantidad_disponible, ubicacion, peso_unidad_kg)
+
+    if (response.success) {
+      res.status(200).json({ message: response.message })
+    } else {
+      res.status(400).json({ message: response.message })
+    }
+  } catch (error) {
+
   }
 })
 

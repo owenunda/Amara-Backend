@@ -29,6 +29,14 @@ class QuesosService {
 
     return await QuesosDao.eliminarQueso(id)
   }
+
+  static async obtenerQuesoPorId (id) {
+    return await QuesosDao.obtenerQuesoPorId(id)
+  }
+
+  static async ModificarQueso (id, nombre, tipo, precio, cantidad_disponible, ubicacion, peso_unidad_kg) {
+    return await QuesosDao.ModificarQueso(id, nombre, tipo, precio, cantidad_disponible, ubicacion, peso_unidad_kg)
+  }
 }
 
 export default QuesosService
