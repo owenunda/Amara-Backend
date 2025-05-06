@@ -1,4 +1,4 @@
-import MateriaPrimaDao from '../dao/materiaPrima.dao.js'
+import MateriaPrimaDao from '../dao/materiaprima.dao.js'
 import AppError from '../utils/AppError.js'
 
 class MateriaPrimaService {
