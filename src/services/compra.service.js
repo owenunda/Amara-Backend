@@ -1,31 +1,49 @@
 import compraDao from '../dao/compra.dao.js'
+import AppError from '../utils/AppError.js'
 /* eslint-disable camelcase */
+
 class CompraService {
-  static async registrarCompra (data) {
+  static async registrarCompra(data) {
     const { cedula_proveedor, metodo_pago, observaciones, detalles } = data
 
     if (!cedula_proveedor || !metodo_pago || !detalles || !observaciones) {
-      return { success: false, message: 'Todos los campos son obligatorios', status: 400 }
+      throw new AppError('Todos los campos son obligatorios', 400)
     }
+
     // Validar que cada materia prima tenga los campos necesarios
     for (const detalle of detalles) {
       if (!detalle.id_materia || !detalle.cantidad || !detalle.precio_unitario) {
-        return { success: false, message: 'Cada detalle debe contener id_materia, cantidad y precio_unitario', status: 400 }
+        throw new AppError('Cada detalle debe contener id_materia, cantidad y precio_unitario', 400)
       }
     }
-    const total = detalles.reduce((sum, detalle) =>
-      sum + (detalle.cantidad * detalle.precio_unitario), 0
-    )
 
-    return await compraDao.registrarCompra(cedula_proveedor, metodo_pago, observaciones, detalles, total)
+    try {
+      const total = detalles.reduce((sum, detalle) =>
+        sum + (detalle.cantidad * detalle.precio_unitario), 0
+      )
+
+      const result = await compraDao.registrarCompra(cedula_proveedor, metodo_pago, observaciones, detalles, total)
+      return { success: true, message: 'Compra registrada exitosamente' }
+    } catch (error) {
+      throw new AppError('Error al registrar la compra', 500)
+    }
   }
 
-  static async ObtenerCompras () {
-    return await compraDao.ObtenerCompras()
+  static async ObtenerCompras() {
+    try {
+      return await compraDao.ObtenerCompras()
+    } catch (error) {
+      throw new AppError('Error al obtener las compras', 500)
+    }
   }
 
-  static async EliminarCompra (id) {
-    return await compraDao.EliminarCompra(id)
+  static async EliminarCompra(id) {
+    try {
+      const result = await compraDao.EliminarCompra(id)
+      return { success: true, message: 'Compra eliminada exitosamente' }
+    } catch (error) {
+      throw new AppError('Error al eliminar la compra', 500)
+    }
   }
 }
 

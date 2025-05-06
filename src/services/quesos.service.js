@@ -1,41 +1,72 @@
 /* eslint-disable camelcase */
 import QuesosDao from '../dao/quesos.dao.js'
+import AppError from '../utils/AppError.js'
 
 class QuesosService {
-  static async obtenerQuesos () {
-    return await QuesosDao.obtenerQuesos()
-  }
+  static async registrarQuesos(data) {
+    const { nombre, tipo, precio, cantidad_disponible, ubicacion, peso_unidad_kg } = data
 
-  static async registrarQuesos (data) {
-    const { nombre, tipo, cantidad_disponible, ubicacion, precio } = data
-    if (!nombre || !tipo || !cantidad_disponible || !ubicacion || !precio) {
-      return { success: false, message: 'Todos los campos son obligatorios', status: 400 }
-    }
-    if (precio <= 0) {
-      return { success: false, message: 'El precio del queso debe ser mayor a 0', status: 400 }
-    }
-    if (cantidad_disponible <= 0) {
-      return { success: false, message: 'La cantidad de quesos  debe ser mayor a 0', status: 400 }
+    if (!nombre || !tipo || !precio || !cantidad_disponible || !ubicacion || !peso_unidad_kg) {
+      throw new AppError('Todos los campos son obligatorios', 400)
     }
 
-    const peso_unidad_kg = 2.5
-    return await QuesosDao.registrarQueso(nombre, tipo, peso_unidad_kg, cantidad_disponible, ubicacion, precio)
-  }
-
-  static async eliminarQueso (id) {
-    if (typeof (id) === 'number') {
-      return { success: false, message: 'la id, tiene que ser un numero' }
+    try {
+      const result = await QuesosDao.registrarQuesos(nombre, tipo, precio, cantidad_disponible, ubicacion, peso_unidad_kg)
+      return { success: true, message: 'Queso registrado exitosamente' }
+    } catch (error) {
+      throw new AppError('Error al registrar el queso', 500)
     }
-
-    return await QuesosDao.eliminarQueso(id)
   }
 
-  static async obtenerQuesoPorId (id) {
-    return await QuesosDao.obtenerQuesoPorId(id)
+  static async obtenerQuesos() {
+    try {
+      return await QuesosDao.obtenerQuesos()
+    } catch (error) {
+      throw new AppError('Error al obtener los quesos', 500)
+    }
   }
 
-  static async ModificarQueso (id, nombre, tipo, precio, cantidad_disponible, ubicacion, peso_unidad_kg) {
-    return await QuesosDao.ModificarQueso(id, nombre, tipo, precio, cantidad_disponible, ubicacion, peso_unidad_kg)
+  static async obtenerQuesoPorId(id) {
+    try {
+      const queso = await QuesosDao.obtenerQuesoPorId(id)
+      if (!queso) {
+        throw new AppError('Queso no encontrado', 404)
+      }
+      return queso
+    } catch (error) {
+      if (error instanceof AppError) throw error
+      throw new AppError('Error al obtener el queso', 500)
+    }
+  }
+
+  static async ModificarQueso(id, nombre, tipo, precio, cantidad_disponible, ubicacion, peso_unidad_kg) {
+    try {
+      const queso = await QuesosDao.obtenerQuesoPorId(id)
+      if (!queso) {
+        throw new AppError('Queso no encontrado', 404)
+      }
+
+      const result = await QuesosDao.ModificarQueso(id, nombre, tipo, precio, cantidad_disponible, ubicacion, peso_unidad_kg)
+      return { success: true, message: 'Queso modificado exitosamente' }
+    } catch (error) {
+      if (error instanceof AppError) throw error
+      throw new AppError('Error al modificar el queso', 500)
+    }
+  }
+
+  static async eliminarQueso(id) {
+    try {
+      const queso = await QuesosDao.obtenerQuesoPorId(id)
+      if (!queso) {
+        throw new AppError('Queso no encontrado', 404)
+      }
+
+      const result = await QuesosDao.eliminarQueso(id)
+      return { success: true, message: 'Queso eliminado exitosamente' }
+    } catch (error) {
+      if (error instanceof AppError) throw error
+      throw new AppError('Error al eliminar el queso', 500)
+    }
   }
 }
 

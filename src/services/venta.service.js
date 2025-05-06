@@ -1,4 +1,5 @@
 import VentaDao from '../dao/venta.dao.js'
+import AppError from '../utils/AppError.js'
 /* eslint-disable camelcase */
 
 class VentaService {
@@ -6,35 +7,49 @@ class VentaService {
     const { cedula_cliente, detalles } = data
 
     if (!cedula_cliente || !Array.isArray(detalles)) {
-      return { success: false, message: 'Todos los campos son obligatorios', status: 400 }
+      throw new AppError('Todos los campos son obligatorios', 400)
     }
 
     if (!Array.isArray(detalles)) {
-      return { success: false, message: 'detalles deben ser un array', status: 400 }
+      throw new AppError('Detalles deben ser un array', 400)
     }
 
     const presentacionesPermitidas = ['unidad', 'canasta']
     for (const detalle of detalles) {
       if (!presentacionesPermitidas.includes(detalle.presentacion)) {
-        return { success: false, message: `Estado inválido. Debe ser uno de: ${presentacionesPermitidas.join(', ')}`, status: 400 }
+        throw new AppError(`Presentación inválida. Debe ser una de: ${presentacionesPermitidas.join(', ')}`, 400)
       }
     }
-    const total_venta = detalles.reduce((sum, detalle) =>
-      sum + (detalle.cantidad * detalle.precio_unitario), 0
-    )
-    return await VentaDao.registrarVenta(cedula_cliente, total_venta, detalles)
+
+    try {
+      const total_venta = detalles.reduce((sum, detalle) =>
+        sum + (detalle.cantidad * detalle.precio_unitario), 0
+      )
+      const result = await VentaDao.registrarVenta(cedula_cliente, total_venta, detalles)
+      return { success: true, message: 'Venta registrada exitosamente' }
+    } catch (error) {
+      throw new AppError('Error al registrar la venta', 500)
+    }
   }
 
   static async obtenerVentas () {
-    return await VentaDao.obtenerVentas()
+    try {
+      return await VentaDao.obtenerVentas()
+    } catch (error) {
+      throw new AppError('Error al obtener las ventas', 500)
+    }
   }
 
   static async EliminarVenta (id) {
-    if (typeof (id) === 'number') {
-      return { success: false, message: 'la id, tiene que ser un numero' }
+    try {
+      if (typeof id !== 'number') {
+        throw new AppError('El ID debe ser un número', 400)
+      }
+      const result = await VentaDao.EliminarVenta(id)
+      return { success: true, message: 'Venta eliminada exitosamente' }
+    } catch (error) {
+      throw new AppError('Error al eliminar la venta', 500)
     }
-
-    return await VentaDao.EliminarVenta(id)
   }
 }
 
