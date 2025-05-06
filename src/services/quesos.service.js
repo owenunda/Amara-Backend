@@ -3,7 +3,7 @@ import QuesosDao from '../dao/quesos.dao.js'
 import AppError from '../utils/AppError.js'
 
 class QuesosService {
-  static async registrarQuesos(data) {
+  static async registrarQuesos (data) {
     const { nombre, tipo, precio, cantidad_disponible, ubicacion, peso_unidad_kg } = data
 
     if (!nombre || !tipo || !precio || !cantidad_disponible || !ubicacion || !peso_unidad_kg) {
@@ -18,7 +18,7 @@ class QuesosService {
     }
   }
 
-  static async obtenerQuesos() {
+  static async obtenerQuesos () {
     try {
       return await QuesosDao.obtenerQuesos()
     } catch (error) {
@@ -26,7 +26,7 @@ class QuesosService {
     }
   }
 
-  static async obtenerQuesoPorId(id) {
+  static async obtenerQuesoPorId (id) {
     try {
       const queso = await QuesosDao.obtenerQuesoPorId(id)
       if (!queso) {
@@ -39,7 +39,7 @@ class QuesosService {
     }
   }
 
-  static async ModificarQueso(id, nombre, tipo, precio, cantidad_disponible, ubicacion, peso_unidad_kg) {
+  static async ModificarQueso (id, nombre, tipo, precio, cantidad_disponible, ubicacion, peso_unidad_kg) {
     try {
       const queso = await QuesosDao.obtenerQuesoPorId(id)
       if (!queso) {
@@ -54,7 +54,7 @@ class QuesosService {
     }
   }
 
-  static async eliminarQueso(id) {
+  static async eliminarQueso (id) {
     try {
       const queso = await QuesosDao.obtenerQuesoPorId(id)
       if (!queso) {

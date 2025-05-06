@@ -3,7 +3,7 @@ import AppError from '../utils/AppError.js'
 /* eslint-disable camelcase */
 
 class CompraService {
-  static async registrarCompra(data) {
+  static async registrarCompra (data) {
     const { cedula_proveedor, metodo_pago, observaciones, detalles } = data
 
     if (!cedula_proveedor || !metodo_pago || !detalles || !observaciones) {
@@ -29,7 +29,7 @@ class CompraService {
     }
   }
 
-  static async ObtenerCompras() {
+  static async ObtenerCompras () {
     try {
       return await compraDao.ObtenerCompras()
     } catch (error) {
@@ -37,7 +37,7 @@ class CompraService {
     }
   }
 
-  static async EliminarCompra(id) {
+  static async EliminarCompra (id) {
     try {
       const result = await compraDao.EliminarCompra(id)
       return { success: true, message: 'Compra eliminada exitosamente' }

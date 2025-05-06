@@ -2,7 +2,7 @@ import MateriaPrimaDao from '../dao/materiaPrima.dao.js'
 import AppError from '../utils/AppError.js'
 
 class MateriaPrimaService {
-  static async obtenerMateriasPrimas() {
+  static async obtenerMateriasPrimas () {
     try {
       return await MateriaPrimaDao.obtenerMateriasPrimas()
     } catch (error) {
@@ -10,7 +10,7 @@ class MateriaPrimaService {
     }
   }
 
-  static async obtenerIdMateriasPrimas() {
+  static async obtenerIdMateriasPrimas () {
     try {
       return await MateriaPrimaDao.obtenerIdMateriasPrimas()
     } catch (error) {

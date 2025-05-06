@@ -3,7 +3,7 @@ import PersonaDao from '../dao/persona.dao.js'
 import AppError from '../utils/AppError.js'
 
 class PersonaService {
-  static async obtenerPersonas() {
+  static async obtenerPersonas () {
     try {
       return await PersonaDao.obtenerPersonas()
     } catch (error) {
@@ -11,7 +11,7 @@ class PersonaService {
     }
   }
 
-  static async obtenerPersonaPorId(id) {
+  static async obtenerPersonaPorId (id) {
     try {
       const persona = await PersonaDao.obtenerPersonaPorId(id)
       if (!persona) {
@@ -24,7 +24,7 @@ class PersonaService {
     }
   }
 
-  static async eliminarPersona(id) {
+  static async eliminarPersona (id) {
     try {
       const persona = await PersonaDao.obtenerPersonaPorId(id)
       if (!persona) {
@@ -39,7 +39,7 @@ class PersonaService {
     }
   }
 
-  static async modificarPersona(id, cedula_nit, nombre, apellido, celular, tipo_persona, edad, direccion, correo) {
+  static async modificarPersona (id, cedula_nit, nombre, apellido, celular, tipo_persona, edad, direccion, correo) {
     try {
       const persona = await PersonaDao.obtenerPersonaPorId(id)
       if (!persona) {
