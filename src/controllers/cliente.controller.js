@@ -1,29 +1,30 @@
 /* eslint-disable camelcase */
 import Cliente_proveedorService from '../services/cliente_proveedor.service.js'
 import { Router } from 'express'
+import AppError from '../utils/AppError.js'
 
 const router = Router()
 
-router.post('/create', async (req, res) => {
+router.post('/create', async (req, res, next) => {
   try {
     const response = await Cliente_proveedorService.create(req.body)
 
     if (response.success) {
       return res.status(201).json({ message: response.message })
     } else {
-      return res.status(400).json({ Error: response.message })
+      return next(new AppError(response.message, response.status))
     }
   } catch (error) {
-    return res.status(500).json({ Error: 'Error del servidor' })
+    next(error)
   }
 })
 
-router.get('/', async (req, res) => {
+router.get('/', async (req, res, next) => {
   try {
     const clientes = await Cliente_proveedorService.obtenerClientes()
-    return res.status(201).json(clientes)
+    return res.status(200).json(clientes)
   } catch (error) {
-    return res.status(500).json({ Error: 'Error del servidor' })
+    next(error)
   }
 })
 

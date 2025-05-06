@@ -1,10 +1,11 @@
 import express from 'express'
 import cors from 'cors'
 import routes from './src/routes/routers.js'
-
 import swaggerUI from 'swagger-ui-express'
 import { createRequire } from 'module'
 import config from './src/config/envConfig.js'
+import errorHandler, { notFound } from './src/middlewares/error.middleware.js'
+
 const require = createRequire(import.meta.url)
 const swaggerDocumentation = require('./swagger.json')
 // const swaggerDocumentationTest = require('./GeneraterSwagger.json')
@@ -17,6 +18,12 @@ app.use(express.json())
 // rutas
 app.use('/api', routes)
 app.use('/doc', swaggerUI.serve, swaggerUI.setup(swaggerDocumentation))
+
+// Middleware para manejar rutas no encontradas
+app.use(notFound)
+
+// Middleware de manejo de errores
+app.use(errorHandler)
 
 // Puerto de escucha
 const PORT = config.port || 3000
