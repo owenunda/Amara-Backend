@@ -7,7 +7,7 @@ const router = Router()
 
 router.post('/create', async (req, res, next) => {
   try {
-    const response = await QuesosService.registrarQuesos(req.body)
+    const response = await QuesosService.registrarQueso(req.body)
     if (response.success) {
       return res.status(201).json({ message: response.message })
     } else {

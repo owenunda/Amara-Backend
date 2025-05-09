@@ -3,15 +3,15 @@ import QuesosDao from '../dao/quesos.dao.js'
 import AppError from '../utils/AppError.js'
 
 class QuesosService {
-  static async registrarQuesos (data) {
-    const { nombre, tipo, precio, cantidad_disponible, ubicacion, peso_unidad_kg } = data
+  static async registrarQueso (data) {
+    const { nombre, tipo, precio, cantidad_disponible, ubicacion } = data
 
-    if (!nombre || !tipo || !precio || !cantidad_disponible || !ubicacion || !peso_unidad_kg) {
+    if (!nombre || !tipo || !precio || !cantidad_disponible || !ubicacion) {
       throw new AppError('Todos los campos son obligatorios', 400)
     }
-
+    const peso_unidad_kg = 2.5
     try {
-      const result = await QuesosDao.registrarQuesos(nombre, tipo, precio, cantidad_disponible, ubicacion, peso_unidad_kg)
+      await QuesosDao.registrarQueso(nombre, tipo, precio, cantidad_disponible, ubicacion, peso_unidad_kg)
       return { success: true, message: 'Queso registrado exitosamente' }
     } catch (error) {
       throw new AppError('Error al registrar el queso', 500)
