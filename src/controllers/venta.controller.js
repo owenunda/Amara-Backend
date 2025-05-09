@@ -29,7 +29,7 @@ router.get('/', async (req, res, next) => {
 router.delete('/:id', async (req, res, next) => {
   try {
     const { id } = req.params
-    const response = await VentaService.EliminarVenta(id)
+    const response = await VentaService.EliminarVenta(parseInt(id))
     if (!response.success) {
       return next(new AppError(response.message, 400))
     }

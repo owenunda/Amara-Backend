@@ -45,7 +45,8 @@ class VentaService {
       if (typeof id !== 'number') {
         throw new AppError('El ID debe ser un número', 400)
       }
-      const result = await VentaDao.EliminarVenta(id)
+
+      await VentaDao.EliminarVenta(id)
       return { success: true, message: 'Venta eliminada exitosamente' }
     } catch (error) {
       throw new AppError('Error al eliminar la venta', 500)
