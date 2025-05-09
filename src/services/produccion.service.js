@@ -41,7 +41,7 @@ class ProduccionService {
 
   static async obtenerProduccion () {
     try {
-      return await ProduccionDao.obtenerProduccion()
+      return await ProduccionDao.ObtenerProduccion()
     } catch (error) {
       throw new AppError('Error al obtener las producciones', 500)
     }

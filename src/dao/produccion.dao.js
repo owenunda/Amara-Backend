@@ -73,9 +73,9 @@ class ProduccionDao {
       const result = await pool
         .request()
         .query(query)
+      console.log(result.recordset)
       return result.recordset
     } catch (error) {
-      console.error('Error al registrar la compra:', error.message)
       return { success: false, message: `Error al obtener la produccion: ${error.message}` }
     }
   }
