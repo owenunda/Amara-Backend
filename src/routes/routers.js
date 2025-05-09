@@ -24,7 +24,7 @@ router.use('/proveedor', proveedorRouters)
 router.use('/materia-prima', materiaPrimaRouters)
 router.use('/compra', compraRouters)
 router.use('/queso', quesosRouters)
-router.use('/produccion', authMiddleware, ProduccionRouter)
+router.use('/produccion', ProduccionRouter)
 router.use('/venta', ventaRouter)
 
 export default router
