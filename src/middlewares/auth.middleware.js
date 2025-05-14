@@ -1,17 +1,20 @@
 import jwt from 'jsonwebtoken'
+import config from '../config/envConfig.js'
 
-export const authMiddleware = (req, res, next) => {
-  const token = req.header('Authorization')
+function authMiddleware () {
+  return (req, res, next) => {
+    const authHeader = req.headers.authorization
+    const token = authHeader?.split(' ')[1]
 
-  if (!token) {
-    return res.status(401).json({ message: 'Acceso denegado, token no proporcionado' })
-  }
+    if (!token) return res.sendStatus(401)
 
-  try {
-    const decoded = jwt.verify(token, process.env.JWT_SECRET)
-    req.user = decoded
-    next()
-  } catch (error) {
-    res.status(401).json({ message: 'Token inválido' })
+    jwt.verify(token, config.jwtSecret, (err, user) => {
+      if (err) return res.sendStatus(403) // Token inválido
+
+      req.user = user
+      next()
+    })
   }
 }
+
+export default authMiddleware

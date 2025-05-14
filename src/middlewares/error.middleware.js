@@ -34,4 +34,4 @@ export const notFound = (req, res, next) => {
   next(new AppError(`No se encontró la ruta: ${req.originalUrl}`, 404))
 }
 
-export default errorHandler 
+export default errorHandler
