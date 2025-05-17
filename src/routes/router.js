@@ -1,7 +1,7 @@
 import express from 'express'
 import personaRouters from '../controllers/persona.controller.js'
 import authRoutes from './auth.routes.js'
-import authMiddleware from '../middlewares/auth.middleware.js'
+// import authMiddleware from '../middlewares/auth.middleware.js'
 import proveedorRouters from '../controllers/proveedor.controller.js'
 import clienteRouters from '../controllers/cliente.controller.js'
 import materiaPrimaRouters from '../controllers/materiaPrima.controller.js'
@@ -20,7 +20,7 @@ router.use('/proveedor', proveedorRouters)
 router.use('/materia-prima', materiaPrimaRouters)
 router.use('/compra', compraRouters)
 router.use('/queso', quesosRouters)
-router.use('/produccion', authMiddleware, ProduccionRouter)
+router.use('/produccion', ProduccionRouter)
 router.use('/venta', ventaRouter)
 
 export default router

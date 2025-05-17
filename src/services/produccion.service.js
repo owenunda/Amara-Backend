@@ -32,7 +32,7 @@ class ProduccionService {
     }
 
     try {
-      const result = await ProduccionDao.registrarProduccion(id_queso, cantidad_producida, responsable, estado, observaciones, detalles)
+      await ProduccionDao.registrarProduccion(id_queso, cantidad_producida, responsable, estado, observaciones, detalles)
       return { success: true, message: 'Producción registrada exitosamente' }
     } catch (error) {
       throw new AppError('Error al registrar la producción', 500)
@@ -67,7 +67,7 @@ class ProduccionService {
         throw new AppError('Producción no encontrada', 404)
       }
 
-      const result = await ProduccionDao.eliminarProduccion(id)
+      await ProduccionDao.eliminarProduccion(id)
       return { success: true, message: 'Producción eliminada exitosamente' }
     } catch (error) {
       if (error instanceof AppError) throw error
@@ -82,7 +82,7 @@ class ProduccionService {
         throw new AppError('Producción no encontrada', 404)
       }
 
-      const result = await ProduccionDao.ModificarProduccion(id, id_queso, cantidad_producida, responsable, estado, observaciones)
+      await ProduccionDao.ModificarProduccion(id, id_queso, cantidad_producida, responsable, estado, observaciones)
       return { success: true, message: 'Producción modificada exitosamente' }
     } catch (error) {
       if (error instanceof AppError) throw error

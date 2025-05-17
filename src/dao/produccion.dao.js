@@ -69,11 +69,11 @@ class ProduccionDao {
     produccion p
   JOIN 
     queso q ON p.id_queso = q.id_queso;`
+
       const pool = await dbConnect
       const result = await pool
         .request()
         .query(query)
-      console.log(result.recordset)
       return result.recordset
     } catch (error) {
       return { success: false, message: `Error al obtener la produccion: ${error.message}` }
