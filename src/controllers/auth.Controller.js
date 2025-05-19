@@ -7,7 +7,6 @@ export const login = async (req, res, next) => {
   try {
     const { nombre_usuario, password } = req.body
 
-    // validamos que se enviaron usuario y contraseña
     if (!nombre_usuario || !password) {
       return next(new AppError('Usuario y contraseña son requeridos', 400))
     }
